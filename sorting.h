@@ -10,4 +10,6 @@ void counting_sort(std::vector<int>& array);
 
 void radix_sort(std::vector<int>& array);
 
+void bucket_sort(std::vector<int>& array);
+
 #endif //SORTING_H

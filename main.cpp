@@ -1,9 +1,13 @@
 #include <print>
 #include <chrono>
+#include <iostream>
 #include <numeric>
 #include <random>
+#include <thread>
 
 #include "sorting.h"
+
+using namespace std::chrono_literals;
 
 class Timer {
     std::chrono::time_point<std::chrono::high_resolution_clock> start;
@@ -24,12 +28,46 @@ void some_sort(std::vector<int>& arr, std::string name, void(*f)(std::vector<int
     f(arr);
 }
 
+std::vector<int> generate_array(size_t size, int range = 1000)
+{
+    std::vector<int> v(size);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distr(0, range);
+    for(int& num : v) {
+        num = distr(gen);
+    }
+    return v;
+}
+
+void test_counting_sort(std::vector<int> arr)
+{
+    some_sort(arr, "counting_sort", &counting_sort);
+}
+
+void test_radix_sort(std::vector<int> arr)
+{
+    some_sort(arr, "radix_sort", &radix_sort);
+}
+
+void test_bucket_sort(std::vector<int> arr)
+{
+    some_sort(arr, "bucket_sort", &bucket_sort);
+}
+
+void stop()
+{
+    std::this_thread::sleep_for(6min);
+    std::println(std::cerr, "stopped 2 min");
+    exit(1);
+}
+
 int main()
 {
-    std::vector<int> v(10);
-    std::iota(v.begin(), v.end(), 0);
-    std::shuffle(v.begin(), v.end(), std::mt19937(std::random_device()()));
-    std::println("{}", v);
-    radix_sort(v);
-    std::println("{}", v);
+    const auto v = generate_array(1000000);
+    std::thread t(stop);
+    test_counting_sort(v);
+    test_bucket_sort(v);
+    test_radix_sort(v);
+    exit(0);
 }

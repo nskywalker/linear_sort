@@ -5,7 +5,8 @@
 #include "sorting.h"
 
 #include <algorithm>
-#include <ranges>
+#include <deque>
+#include <list>
 #include <vector>
 
 void counting_sort(std::vector<int>& array)
@@ -70,5 +71,33 @@ void radix_sort(std::vector<int>& array)
         }
         std::ranges::copy(temp, array.begin());
         r *= base;
+    }
+}
+
+void bucket_sort(std::vector<int>& array)
+{
+    const int max = std::ranges::max(array);
+    int num_buckets = 10;
+    std::vector buckets(num_buckets, std::deque<int>());
+    for (int elem : array) {
+        auto curNumBacket = static_cast<int>(elem * 1.0 / (max + 1) * num_buckets);
+        auto& curBacket = buckets[curNumBacket];
+        if (curBacket.empty()) {
+            curBacket.push_back(elem);
+        } else {
+            int j = 0;
+            while (j < curBacket.size() && curBacket[j] < elem) {
+                ++j;
+                curBacket.insert(curBacket.begin() + j, elem);
+            }
+        }
+    }
+    int j = 0;
+    for (auto& curBucket : buckets) {
+        if (!curBucket.empty()) {
+            for (const int k : curBucket) {
+                array[j++] = k;
+            }
+        }
     }
 }
