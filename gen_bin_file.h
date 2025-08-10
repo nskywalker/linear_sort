@@ -7,4 +7,6 @@
 
 void gen_bin_file();
 
+std::vector<unsigned short> gen_bin_array();
+
 #endif //GEN_BIN_FILE_H

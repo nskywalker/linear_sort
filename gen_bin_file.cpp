@@ -6,6 +6,7 @@
 #include <vector>
 #include <ranges>
 #include <limits>
+#include <filesystem>
 #include "gen_bin_file.h"
 
 #include <random>
@@ -23,4 +24,12 @@ void gen_bin_file()
         array.push_back(distr(gen));
     }
     out.write(reinterpret_cast<char*>(array.data()), sizeof(unsigned short) * array.size());
+}
+
+std::vector<unsigned short> gen_bin_array()
+{
+    std::vector<unsigned short> array(100000000ull, 0);
+    std::ifstream in("../array.bin", std::ios::binary);
+    in.read(reinterpret_cast<char*>(array.data()), sizeof(unsigned short) * array.size());
+    return array;
 }

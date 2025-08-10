@@ -9,7 +9,7 @@
 #include <list>
 #include <vector>
 
-void counting_sort(std::vector<int>& array)
+void counting_sort(std::vector<unsigned short>& array)
 {
     const int max = std::ranges::max(array);
     std::vector<int> count(max + 1, 0);
@@ -32,7 +32,7 @@ void counting_sort(std::vector<int>& array)
     }
 }
 
-int find_digits(std::vector<int>& array)
+int find_digits(std::vector<unsigned short>& array)
 {
     const int max = std::ranges::max(array);
     int digits = 0;
@@ -47,7 +47,7 @@ int find_digits(std::vector<int>& array)
     return digits;
 }
 
-void radix_sort(std::vector<int>& array)
+void radix_sort(std::vector<unsigned short>& array)
 {
     const int base = 10;
     int digits = find_digits(array);
@@ -74,7 +74,7 @@ void radix_sort(std::vector<int>& array)
     }
 }
 
-void bucket_sort(std::vector<int>& array)
+void bucket_sort(std::vector<unsigned short>& array)
 {
     const int max = std::ranges::max(array);
     int num_buckets = 10;

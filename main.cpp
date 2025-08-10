@@ -1,11 +1,11 @@
 #include <print>
 #include <chrono>
 #include <iostream>
-#include <numeric>
 #include <random>
 #include <thread>
 
 #include "sorting.h"
+#include "gen_bin_file.h"
 
 using namespace std::chrono_literals;
 
@@ -21,7 +21,7 @@ public:
     }
 };
 
-void some_sort(std::vector<int>& arr, std::string name, void(*f)(std::vector<int>&))
+void some_sort(std::vector<unsigned short>& arr, std::string name, void(*f)(std::vector<unsigned short>&))
 {
     std::println("{}", name);
     Timer t;
@@ -40,17 +40,17 @@ std::vector<int> generate_array(size_t size, int range = 1000)
     return v;
 }
 
-void test_counting_sort(std::vector<int> arr)
+void test_counting_sort(std::vector<unsigned short> arr)
 {
     some_sort(arr, "counting_sort", &counting_sort);
 }
 
-void test_radix_sort(std::vector<int> arr)
+void test_radix_sort(std::vector<unsigned short> arr)
 {
     some_sort(arr, "radix_sort", &radix_sort);
 }
 
-void test_bucket_sort(std::vector<int> arr)
+void test_bucket_sort(std::vector<unsigned short> arr)
 {
     some_sort(arr, "bucket_sort", &bucket_sort);
 }
@@ -64,7 +64,7 @@ void stop()
 
 int main()
 {
-    const auto v = generate_array(1000000);
+    auto v = gen_bin_array();
     std::thread t(stop);
     test_counting_sort(v);
     test_bucket_sort(v);

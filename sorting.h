@@ -6,10 +6,10 @@
 #define SORTING_H
 #include <vector>
 
-void counting_sort(std::vector<int>& array);
+void counting_sort(std::vector<unsigned short>& array);
 
-void radix_sort(std::vector<int>& array);
+void radix_sort(std::vector<unsigned short>& array);
 
-void bucket_sort(std::vector<int>& array);
+void bucket_sort(std::vector<unsigned short>& array);
 
 #endif //SORTING_H
