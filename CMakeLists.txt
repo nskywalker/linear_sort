@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(linear_sort main.cpp
         sorting.cpp
-        sorting.h)
+        sorting.h
+        gen_bin_file.cpp
+        gen_bin_file.h)
 
 target_link_libraries(linear_sort PRIVATE stdc++exp)
